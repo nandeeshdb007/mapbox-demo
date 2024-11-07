@@ -11,8 +11,8 @@ export default function Home() {
     region: "",
     postCode: "",
     country: "",
-    logitude: "",
-    latitude: "",
+    longitude: 0,
+    latitude: 0,
   });
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -20,10 +20,12 @@ export default function Home() {
     console.log(address);
   };
 
-  const updateCoordinates = (logitude: string, latitude: string) => {
-    setAddress({ ...address, logitude, latitude });
+  const updateCoordinates = (longitude: number, latitude: number) => {
+    setAddress({ ...address, longitude, latitude });
   };
 
+
+  
   return (
     <div className="bg-blue-400 min-h-screen w-full flex items-center justify-center ">
       <div className="grid grid-cols-2 gap-4">
@@ -33,7 +35,7 @@ export default function Home() {
           setAddress={setAddress}
         />
         <DisplayMap
-          longitude={address.logitude}
+          longitude={address.longitude}
           latitude={address.latitude}
           updateCoordinates={updateCoordinates}
         />

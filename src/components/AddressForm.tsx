@@ -10,8 +10,8 @@ interface AddressFormProps {
     region: string;
     postCode: string;
     country: string;
-    logitude: string;
-    latitude: string;
+    longitude: number;
+    latitude: number;
   };
   setAddress: React.Dispatch<
     React.SetStateAction<{
@@ -20,8 +20,8 @@ interface AddressFormProps {
       region: string;
       postCode: string;
       country: string;
-      logitude: string;
-      latitude: string;
+      longitude: number;
+      latitude: number;
     }>
   >;
 }
@@ -33,7 +33,7 @@ const AddressForm: FC<AddressFormProps> = ({
 }) => {
   const handleManualInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
-    stateProperty: keyof typeof address
+    stateProperty: any
   ) => {
     const newAddress = { ...address, [stateProperty]: event.target.value };
     setAddress(newAddress);
@@ -86,18 +86,18 @@ const AddressForm: FC<AddressFormProps> = ({
         />
       </div>
       <div className="flex items-center gap-2">
-        <label htmlFor="logitude">Logitude</label>
+        <label htmlFor="longitude">longitude</label>
         <input
-          type="text"
-          id="logitude"
-          value={address.logitude}
-          onChange={(e) => handleManualInputChange(e, "logitude")}
+          type="number"
+          id="longitude"
+          value={address.longitude}
+          onChange={(e) => handleManualInputChange(e, "longitude")}
         />
       </div>
       <div className="flex items-center gap-2">
         <label htmlFor="latitude">latitude</label>
         <input
-          type="text"
+          type="number"
           id="latitude"
           value={address.latitude}
           onChange={(e) => handleManualInputChange(e, "latitude")}
