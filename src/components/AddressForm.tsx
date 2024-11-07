@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { FC } from "react";
+import AutoCompleteInput from "./AutoCompleteInput";
 
 interface AddressFormProps {
   handleFormSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -29,17 +31,79 @@ const AddressForm: FC<AddressFormProps> = ({
   address,
   setAddress,
 }) => {
+  const handleManualInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    stateProperty: keyof typeof address
+  ) => {
+    const newAddress = { ...address, [stateProperty]: event.target.value };
+    setAddress(newAddress);
+  };
+
   return (
-    <form onSubmit={handleFormSubmit}>
-      <input
-        type="text"
-        value={address.streetAndNumber}
-        onChange={(e) =>
-          setAddress({ ...address, streetAndNumber: e.target.value })
-        }
-        placeholder="Street and Number"
-      />
-      <button type="submit">Submit</button>
+    <form onSubmit={handleFormSubmit} className="flex flex-col gap-4">
+      <div className="flex items-center gap-2">
+        <label htmlFor="address">Address</label>
+        <AutoCompleteInput
+          handleMaunalChange={handleManualInputChange}
+          streetAndNumber={address.streetAndNumber}
+          setAddress={setAddress}
+        />
+      </div>
+      <div className="flex items-center gap-2">
+        <label htmlFor="place">City</label>
+        <input
+          type="text"
+          id="place"
+          value={address.place}
+          onChange={(e) => handleManualInputChange(e, "place")}
+        />
+      </div>
+      <div className="flex items-center gap-2">
+        <label htmlFor="region">Region</label>
+        <input
+          type="text"
+          id="region"
+          value={address.region}
+          onChange={(e) => handleManualInputChange(e, "region")}
+        />
+      </div>
+      <div className="flex items-center gap-2">
+        <label htmlFor="postCode">PostCode</label>
+        <input
+          type="text"
+          id="postCode"
+          value={address.postCode}
+          onChange={(e) => handleManualInputChange(e, "postCode")}
+        />
+      </div>
+      <div className="flex items-center gap-2">
+        <label htmlFor="country">Country</label>
+        <input
+          type="text"
+          id="country"
+          value={address.country}
+          onChange={(e) => handleManualInputChange(e, "country")}
+        />
+      </div>
+      <div className="flex items-center gap-2">
+        <label htmlFor="logitude">Logitude</label>
+        <input
+          type="text"
+          id="logitude"
+          value={address.logitude}
+          onChange={(e) => handleManualInputChange(e, "logitude")}
+        />
+      </div>
+      <div className="flex items-center gap-2">
+        <label htmlFor="latitude">latitude</label>
+        <input
+          type="text"
+          id="latitude"
+          value={address.latitude}
+          onChange={(e) => handleManualInputChange(e, "latitude")}
+        />
+      </div>
+      <button type="submit" className="bg-green-500">Submit</button>
     </form>
   );
 };
